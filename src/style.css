@@ -1,0 +1,230 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+h1,
+h2,
+.temp-current,
+.temp-unit,
+.current-location-button,
+.search-button,
+.searchbar {
+  font-family: "PT Mono", monospace;
+}
+
+h1,
+h2 {
+  font-weight: 700;
+  color: #f7be7f;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: 40px;
+  max-width: 100%;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+hr {
+  opacity: 1;
+  border: none;
+  border-top: 5px solid #4ed99c;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 17px;
+  max-width: 95%;
+}
+
+.section {
+  padding: 12px;
+  border: 2px solid #4ed99c;
+  border-radius: 4px;
+  box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.3);
+  background-color: #17706e;
+}
+
+.searchbar-out {
+  margin-bottom: 20px;
+  background-color: #17706e;
+  border: 1px solid rgba(78, 217, 156, 1);
+}
+
+.searchbar {
+  margin-bottom: 0 !important;
+}
+
+.searchbar-type {
+  border-color: #4ed99c;
+}
+
+.search-button {
+  font-weight: 700;
+  font-size: 20px;
+  background-color: #fff;
+  border-color: #4ed99c;
+  color: #4ed99c;
+  max-width: 100%;
+  float: right;
+}
+
+.search-button:hover {
+  background-color: #4ed99c;
+  border-color: #4ed99c;
+}
+
+.search-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.current-location-button {
+  display: block;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  float: right;
+  font-weight: 700;
+  color: #fb3569;
+  background-color: #fff;
+  border-color: #fb3569;
+}
+
+.current-location-button:hover {
+  background-color: #fb3569;
+  border-color: #fb3569;
+}
+
+.current-location-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.icon-current {
+  text-align: center;
+  font-size: 110px;
+  color: #fff8e5;
+}
+
+.temp-current {
+  text-align: right;
+  font-size: 90px;
+  font-weight: 700;
+  color: #f7be7f;
+}
+
+.temp-current-maxmin {
+  text-align: right;
+  color: #f7be7f;
+  font-size: 20px;
+}
+
+.temp-unit-change {
+  margin-top: 20px;
+  padding-left: 0;
+}
+
+.temp-unit {
+  padding: 0;
+  border: none;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.temp-unit:hover {
+  background-color: transparent;
+}
+
+.temp-unit:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#button-unit-celsius {
+  color: #fb3569;
+}
+
+#button-unit-fahrenheit {
+  color: #783444;
+}
+
+.vr {
+  display: inline;
+  opacity: 1;
+  background-color: #4ed99c;
+  border-radius: 4px;
+  margin: 0 3px 0 4px;
+  padding: 7px 2px 7px 1px;
+}
+
+.extra-info {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-left: 40px;
+  padding-top: 15px;
+  font-style: italic;
+  font-weight: 600;
+  color: #fff8e5;
+}
+
+.precipitation-value,
+.humidity-value,
+.wind-value {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.current {
+  text-align: right;
+  margin-right: 35px;
+}
+
+.day {
+  font-weight: 600;
+  font-size: 25px;
+  color: #d1ebfe;
+  margin-bottom: 10px;
+}
+
+.time,
+.date {
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.weather {
+  font-size: 20px;
+  color: #fff8e5;
+}
+
+.forecast {
+  text-align: center;
+}
+
+.forecast-days {
+  border-radius: 10px;
+  transition: all 200ms ease-in-out;
+}
+
+.forecast-days:hover {
+  background-color: rgba(78, 217, 156, 0.5);
+}
+
+.icon-forecast {
+  color: #fff8e5;
+  font-size: 55px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.temp-max {
+  color: #f7be7f;
+}
