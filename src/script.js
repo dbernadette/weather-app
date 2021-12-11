@@ -194,19 +194,21 @@ function displayWeather(response) {
 
   let countryName = new Intl.DisplayNames(["en"], { type: "region" });
   let countryFullName = countryName.of(response.data.sys.country);
-  let temperature = Math.round(response.data.main.temp);
-  let temperatureMax = Math.round(response.data.main.temp_max);
-  let temperatureMin = Math.round(response.data.main.temp_min);
+
+  celsiusTempCurrent = response.data.main.temp;
+  celsiusTempMax = response.data.main.temp_max;
+  celsiusTempMin = response.data.main.temp_min;
+  NormalWindSpeed = response.data.wind.speed * 3.6;
 
   city.innerHTML = response.data.name;
   country.innerHTML = countryFullName;
   weatherDescription.innerHTML = response.data.weather[0].main;
-  currentTemperature.innerHTML = temperature;
-  currentTemperatureMax.innerHTML = `${temperatureMax} °C`;
-  currentTemperatureMin.innerHTML = `${temperatureMin} °C`;
+  currentTemperature.innerHTML = Math.round(celsiusTempCurrent);
+  currentTemperatureMax.innerHTML = `${Math.round(celsiusTempMax)} °C`;
+  currentTemperatureMin.innerHTML = `${Math.round(celsiusTempMin)} °C`;
   precipitation.innerHTML = `${response.data.clouds.all} %`;
   humidity.innerHTML = `${response.data.main.humidity} %`;
-  windSpeed.innerHTML = `${Math.round(response.data.wind.speed * 3.6)} km/h`;
+  windSpeed.innerHTML = `${Math.round(NormalWindSpeed)} km/h`;
 
   let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
   let latitude = response.data.coord.lat;
@@ -241,6 +243,16 @@ function convertTempCelsius(event) {
   event.target.style.color = "#fb3569";
   let otherButton = document.querySelector("#button-unit-fahrenheit");
   otherButton.style.color = "#783444";
+
+  let currentTemperature = document.querySelector("#temp-current");
+  let currentTemperatureMax = document.querySelector("#temp-current-max");
+  let currentTemperatureMin = document.querySelector("#temp-current-min");
+  let windSpeed = document.querySelector("#wind-value");
+
+  currentTemperature.innerHTML = Math.round(celsiusTempCurrent);
+  currentTemperatureMax.innerHTML = `${Math.round(celsiusTempMax)} °C`;
+  currentTemperatureMin.innerHTML = `${Math.round(celsiusTempMin)} °C`;
+  windSpeed.innerHTML = `${Math.round(NormalWindSpeed)} km/h`;
 }
 
 function convertTempFahrenheit(event) {
@@ -248,6 +260,21 @@ function convertTempFahrenheit(event) {
   event.target.style.color = "#fb3569";
   let otherButton = document.querySelector("#button-unit-celsius");
   otherButton.style.color = "#783444";
+
+  let currentTemperature = document.querySelector("#temp-current");
+  let currentTemperatureMax = document.querySelector("#temp-current-max");
+  let currentTemperatureMin = document.querySelector("#temp-current-min");
+  let windSpeed = document.querySelector("#wind-value");
+
+  let fahrenheitTempCurrent = (celsiusTempCurrent * 9) / 5 + 32;
+  let fahrenheitTempMax = (celsiusTempMax * 9) / 5 + 32;
+  let fahrenheitTempMin = (celsiusTempMin * 9) / 5 + 32;
+  let WeirdWindSpeed = NormalWindSpeed / 1.609;
+
+  currentTemperature.innerHTML = Math.round(fahrenheitTempCurrent);
+  currentTemperatureMax.innerHTML = `${Math.round(fahrenheitTempMax)} °F`;
+  currentTemperatureMin.innerHTML = `${Math.round(fahrenheitTempMin)} °F`;
+  windSpeed.innerHTML = `${Math.round(WeirdWindSpeed)} mph`;
 }
 
 function retrievePosition(position) {
@@ -264,6 +291,11 @@ function getPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(retrievePosition);
 }
+
+let celsiusTempCurrent = null;
+let celsiusTempMax = null;
+let celsiusTempMin = null;
+let NormalWindSpeed = null;
 
 getCurrentDate(new Date());
 
