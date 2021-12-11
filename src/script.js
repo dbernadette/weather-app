@@ -181,6 +181,58 @@ function displayForecast(response) {
   TempMinFive.innerHTML = `${Math.round(response.data.daily[5].temp.min)} °C`;
 }
 
+function displayWeatherIcon(iconNumber) {
+  let currentIcon = document.querySelector("#icon-current");
+  if (iconNumber === "01d") {
+    currentIcon.classList.add("fa-sun");
+  } else {
+    if (iconNumber === "01n") {
+      currentIcon.classList.add("fa-moon");
+    } else {
+      if (iconNumber === "02d") {
+        currentIcon.classList.add("fa-cloud-sun");
+      } else {
+        if (iconNumber === "02n") {
+          currentIcon.classList.add("fa-cloud-moon");
+        } else {
+          if (
+            iconNumber === "03d" ||
+            iconNumber === "03n" ||
+            iconNumber === "04d" ||
+            iconNumber === "04n"
+          ) {
+            currentIcon.classList.add("fa-cloud");
+          } else {
+            if (iconNumber === "09d" || iconNumber === "09n") {
+              currentIcon.classList.add("fa-cloud-showers-heavy");
+            } else {
+              if (iconNumber === "10d") {
+                currentIcon.classList.add("fa-cloud-sun-rain");
+              } else {
+                if (iconNumber === "10n") {
+                  currentIcon.classList.add("fa-cloud-moon-rain");
+                } else {
+                  if (iconNumber === "11d" || iconNumber === "11n") {
+                    currentIcon.classList.add("fa-bolt");
+                  } else {
+                    if (iconNumber === "13d" || iconNumber === "13n") {
+                      currentIcon.classList.add("fa-snowflake");
+                    } else {
+                      if (iconNumber === "50d" || iconNumber === "50n") {
+                        currentIcon.classList.add("fa-smog");
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 function displayWeather(response) {
   let city = document.querySelector("h1");
   let country = document.querySelector("h2");
@@ -209,6 +261,22 @@ function displayWeather(response) {
   precipitation.innerHTML = `${response.data.clouds.all} %`;
   humidity.innerHTML = `${response.data.main.humidity} %`;
   windSpeed.innerHTML = `${Math.round(NormalWindSpeed)} km/h`;
+
+  let currentIcon = document.querySelector("#icon-current");
+  currentIcon.classList.remove(
+    "fa-sun",
+    "fa-moon",
+    "fa-cloud-sun",
+    "fa-cloud-moon",
+    "fa-cloud",
+    "fa-cloud-showers-heavy",
+    "fa-cloud-sun-rain",
+    "fa-cloud-moon-rain",
+    "fa-bolt",
+    "fa-snowflake",
+    "fa-smog"
+  );
+  displayWeatherIcon(response.data.weather[0].icon);
 
   let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
   let latitude = response.data.coord.lat;
