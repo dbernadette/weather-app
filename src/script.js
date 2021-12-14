@@ -58,24 +58,25 @@ function getCurrentDate(currentTime) {
   }
 }
 
-function getForecastDate(currentTime) {
-  let forecastDayOne = document.querySelector("#day-one");
-  let forecastDateOne = document.querySelector("#date-one");
-  let forecastMonthOne = document.querySelector("#month-one");
-  let forecastDayTwo = document.querySelector("#day-two");
-  let forecastDateTwo = document.querySelector("#date-two");
-  let forecastMonthTwo = document.querySelector("#month-two");
-  let forecastDayThree = document.querySelector("#day-three");
-  let forecastDateThree = document.querySelector("#date-three");
-  let forecastMonthThree = document.querySelector("#month-three");
-  let forecastDayFour = document.querySelector("#day-four");
-  let forecastDateFour = document.querySelector("#date-four");
-  let forecastMonthFour = document.querySelector("#month-four");
-  let forecastDayFive = document.querySelector("#day-five");
-  let forecastDateFive = document.querySelector("#date-five");
-  let forecastMonthFive = document.querySelector("#month-five");
-
+function formatForecastDay(dateTime) {
+  let forecastdate = new Date(dateTime);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let day = days[forecastdate.getDay()];
+  return day;
+}
+
+function formatForecastDate(dateTime) {
+  let forecastdate = new Date(dateTime);
+  let date = forecastdate.getDate();
+  if (date < 10) {
+    return `0${date}`;
+  } else {
+    return date;
+  }
+}
+
+function formatForecastMonth(dateTime) {
+  let forecastdate = new Date(dateTime);
   let months = [
     "01",
     "02",
@@ -90,99 +91,39 @@ function getForecastDate(currentTime) {
     "11",
     "12",
   ];
-
-  currentTime.setDate(currentTime.getDate() + 1);
-  let dayOne = days[currentTime.getDay()];
-  let dateOne = currentTime.getDate();
-  let monthOne = months[currentTime.getMonth()];
-
-  currentTime.setDate(currentTime.getDate() + 1);
-  let dayTwo = days[currentTime.getDay()];
-  let dateTwo = currentTime.getDate();
-  let monthTwo = months[currentTime.getMonth()];
-
-  currentTime.setDate(currentTime.getDate() + 1);
-  let dayThree = days[currentTime.getDay()];
-  let dateThree = currentTime.getDate();
-  let monthThree = months[currentTime.getMonth()];
-
-  currentTime.setDate(currentTime.getDate() + 1);
-  let dayFour = days[currentTime.getDay()];
-  let dateFour = currentTime.getDate();
-  let monthFour = months[currentTime.getMonth()];
-
-  currentTime.setDate(currentTime.getDate() + 1);
-  let dayFive = days[currentTime.getDay()];
-  let dateFive = currentTime.getDate();
-  let monthFive = months[currentTime.getMonth()];
-
-  forecastDayOne.innerHTML = dayOne;
-  if (dateOne < 10) {
-    forecastDateOne.innerHTML = `0${dateOne}`;
-  } else {
-    forecastDateOne.innerHTML = dateOne;
-  }
-  forecastMonthOne.innerHTML = monthOne;
-
-  forecastDayTwo.innerHTML = dayTwo;
-  if (dateTwo < 10) {
-    forecastDateTwo.innerHTML = `0${dateTwo}`;
-  } else {
-    forecastDateTwo.innerHTML = dateTwo;
-  }
-  forecastMonthTwo.innerHTML = monthTwo;
-
-  forecastDayThree.innerHTML = dayThree;
-  if (dateThree < 10) {
-    forecastDateThree.innerHTML = `0${dateThree}`;
-  } else {
-    forecastDateThree.innerHTML = dateThree;
-  }
-  forecastMonthThree.innerHTML = monthThree;
-
-  forecastDayFour.innerHTML = dayFour;
-  if (dateFour < 10) {
-    forecastDateFour.innerHTML = `0${dateFour}`;
-  } else {
-    forecastDateFour.innerHTML = dateFour;
-  }
-  forecastMonthFour.innerHTML = monthFour;
-
-  forecastDayFive.innerHTML = dayFive;
-  if (dateFive < 10) {
-    forecastDateFive.innerHTML = `0${dateFive}`;
-  } else {
-    forecastDateFive.innerHTML = dateFive;
-  }
-  forecastMonthFive.innerHTML = monthFive;
+  let month = months[forecastdate.getMonth()];
+  return month;
 }
 
-function displayForecast(response) {
-  let TempMaxOne = document.querySelector("#temp-max-one");
-  let TempMinOne = document.querySelector("#temp-min-one");
-  let TempMaxTwo = document.querySelector("#temp-max-two");
-  let TempMinTwo = document.querySelector("#temp-min-two");
-  let TempMaxThree = document.querySelector("#temp-max-three");
-  let TempMinThree = document.querySelector("#temp-min-three");
-  let TempMaxFour = document.querySelector("#temp-max-four");
-  let TempMinFour = document.querySelector("#temp-min-four");
-  let TempMaxFive = document.querySelector("#temp-max-five");
-  let TempMinFive = document.querySelector("#temp-min-five");
-
-  TempMaxOne.innerHTML = `${Math.round(response.data.daily[1].temp.max)} °C`;
-  TempMinOne.innerHTML = `${Math.round(response.data.daily[1].temp.min)} °C`;
-  TempMaxTwo.innerHTML = `${Math.round(response.data.daily[2].temp.max)} °C`;
-  TempMinTwo.innerHTML = `${Math.round(response.data.daily[2].temp.min)} °C`;
-  TempMaxThree.innerHTML = `${Math.round(response.data.daily[3].temp.max)} °C`;
-  TempMinThree.innerHTML = `${Math.round(response.data.daily[3].temp.min)} °C`;
-  TempMaxFour.innerHTML = `${Math.round(response.data.daily[4].temp.max)} °C`;
-  TempMinFour.innerHTML = `${Math.round(response.data.daily[4].temp.min)} °C`;
-  TempMaxFive.innerHTML = `${Math.round(response.data.daily[5].temp.max)} °C`;
-  TempMinFive.innerHTML = `${Math.round(response.data.daily[5].temp.min)} °C`;
+function formatRefreshTime(timeStamp) {
+  let date = new Date(timeStamp);
+  let hour = date.getHours();
+  let min = date.getMinutes();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  if (min < 10) {
+    min = `0${min}`;
+  }
+  return `${hour}:${min}`;
 }
 
 function displayWeatherIcon(iconNumber) {
   let currentIcon = document.querySelector("#icon-current");
+  currentIcon.classList.remove(
+    "fa-sun",
+    "fa-moon",
+    "fa-cloud-sun",
+    "fa-cloud-moon",
+    "fa-cloud",
+    "fa-cloud-showers-heavy",
+    "fa-cloud-sun-rain",
+    "fa-cloud-moon-rain",
+    "fa-bolt",
+    "fa-snowflake",
+    "fa-smog"
+  );
+
   if (iconNumber === "01d") {
     currentIcon.classList.add("fa-sun");
   } else {
@@ -233,6 +174,115 @@ function displayWeatherIcon(iconNumber) {
   }
 }
 
+function displayForecastIcon(iconNumber) {
+  if (iconNumber === "01d") {
+    return "fa-sun";
+  } else {
+    if (iconNumber === "01n") {
+      return "fa-moon";
+    } else {
+      if (iconNumber === "02d") {
+        return "fa-cloud-sun";
+      } else {
+        if (iconNumber === "02n") {
+          return "fa-cloud-moon";
+        } else {
+          if (
+            iconNumber === "03d" ||
+            iconNumber === "03n" ||
+            iconNumber === "04d" ||
+            iconNumber === "04n"
+          ) {
+            return "fa-cloud";
+          } else {
+            if (iconNumber === "09d" || iconNumber === "09n") {
+              return "fa-cloud-showers-heavy";
+            } else {
+              if (iconNumber === "10d") {
+                return "fa-cloud-sun-rain";
+              } else {
+                if (iconNumber === "10n") {
+                  return "fa-cloud-moon-rain";
+                } else {
+                  if (iconNumber === "11d" || iconNumber === "11n") {
+                    return "fa-bolt";
+                  } else {
+                    if (iconNumber === "13d" || iconNumber === "13n") {
+                      return "fa-snowflake";
+                    } else {
+                      if (iconNumber === "50d" || iconNumber === "50n") {
+                        return "fa-smog";
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  let forecast = response.data.daily;
+
+  let forecastHTML = `<div class="row align-items-center forecast">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index > 0 && index < 7) {
+      forecastHTML += `<div class="col-sm pt-2">
+              <div class="forecast-days">
+                <div class="row align-items-center">
+                  <div class="col-4 col-sm-12">
+                    <div class="day-forecast">
+                      <span id="forecast-day">${formatForecastDay(
+                        forecastDay.dt * 1000
+                      )}</span>
+                      <div class="date-forecast">
+                        <span id="forecast-date">${formatForecastDate(
+                          forecastDay.dt * 1000
+                        )}</span> /
+                        <span id="forecast-month">${formatForecastMonth(
+                          forecastDay.dt * 1000
+                        )}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4 col-sm-12">
+                    <i class="fas ${displayForecastIcon(
+                      forecastDay.weather[0].icon
+                    )} icon-forecast" id="icon-forecast"></i>
+                  </div>
+                  <div class="col-4 col-sm-12">
+                    <div class="temp-forecast">
+                      <span id="temp-forecast-max">${Math.round(
+                        forecastDay.temp.max
+                      )} °</span> /
+                      <span id="temp-forecast-min">${Math.round(
+                        forecastDay.temp.min
+                      )} °</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+    }
+  });
+  forecastHTML += `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function callForecastApi(coord) {
+  let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
+  let latitude = coord.lat;
+  let longitude = coord.lon;
+  let unit = "metric";
+  let forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&units=${unit}&appid=${apiKey}`;
+  axios.get(forecastUrl).then(displayForecast);
+}
+
 function displayWeather(response) {
   let city = document.querySelector("h1");
   let country = document.querySelector("h2");
@@ -262,28 +312,12 @@ function displayWeather(response) {
   humidity.innerHTML = `${response.data.main.humidity} %`;
   windSpeed.innerHTML = `${Math.round(NormalWindSpeed)} km/h`;
 
-  let currentIcon = document.querySelector("#icon-current");
-  currentIcon.classList.remove(
-    "fa-sun",
-    "fa-moon",
-    "fa-cloud-sun",
-    "fa-cloud-moon",
-    "fa-cloud",
-    "fa-cloud-showers-heavy",
-    "fa-cloud-sun-rain",
-    "fa-cloud-moon-rain",
-    "fa-bolt",
-    "fa-snowflake",
-    "fa-smog"
-  );
   displayWeatherIcon(response.data.weather[0].icon);
 
-  let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
-  let latitude = response.data.coord.lat;
-  let longitude = response.data.coord.lon;
-  let unit = "metric";
-  let forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&units=${unit}&appid=${apiKey}`;
-  axios.get(forecastUrl).then(displayForecast);
+  let refreshTime = document.querySelector("#refresh-time");
+  refreshTime.innerHTML = formatRefreshTime(response.data.dt * 1000);
+
+  callForecastApi(response.data.coord);
 }
 
 function callWeatherApi(city) {
@@ -366,8 +400,6 @@ let celsiusTempMin = null;
 let NormalWindSpeed = null;
 
 getCurrentDate(new Date());
-
-getForecastDate(new Date());
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", searchCity);

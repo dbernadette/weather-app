@@ -27,9 +27,9 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-7 section">
+        <div class="col-lg-7 section">
           <div class="row">
-            <div class="col-lg-4 order-lg-2">
+            <div class="col-sm-4 order-sm-2">
               <button
                 class="btn btn-outline-primary current-location-button"
                 id="current-location-button"
@@ -37,8 +37,8 @@
                 Current location
               </button>
             </div>
-            <div class="col-lg-8 order-lg-1">
-              <div class="card searchbar-out">
+            <div class="col-sm-8 order-sm-1">
+              <div class="card search-engine">
                 <div class="card-body">
                   <form id="search-form">
                     <div class="row align-items-center">
@@ -69,8 +69,14 @@
           </div>
 
           <div class="row">
-            <div class="col-xl-4 order-xl-2 pb-4">
-              <div class="current">
+            <div
+              class="
+                col-md-4 col-lg-12 col-xl-4
+                order-md-2 order-lg-1 order-xl-2
+                pb-4
+              "
+            >
+              <div class="current-info">
                 <h1 id="city"></h1>
                 <h2 id="country"></h2>
                 <div class="day">
@@ -79,7 +85,7 @@
                     ><span id="current-date"></span> /
                     <span id="current-month"></span
                   ></span>
-                  <div class="time" id="current-time">
+                  <div class="time">
                     <span id="current-hour"></span>:<span
                       id="current-minutes"
                     ></span>
@@ -89,7 +95,12 @@
               </div>
             </div>
 
-            <div class="col-xl-8 order-xl-1">
+            <div
+              class="
+                col-md-8 col-lg-12 col-xl-8
+                order-md-1 order-lg-2 order-xl-1
+              "
+            >
               <div class="row">
                 <div class="col-5 icon-current">
                   <i class="fas icon-current" id="icon-current"></i>
@@ -151,195 +162,18 @@
               </div>
             </div>
           </div>
+          <div class="refresh-time">
+            <span class="refresh-description">Last updated:</span
+            ><span id="refresh-time"></span>
+          </div>
 
           <hr />
 
-          <div class="row align-items-center forecast">
-            <div class="col-sm pt-3 pb-1">
-              <div class="forecast-days">
-                <div class="row align-items-center">
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="day">
-                      <span id="day-one"></span>
-                      <div class="date">
-                        <span id="date-one"></span> /
-                        <span id="month-one"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <i class="fas fa-sun icon-forecast"></i>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="temp-max">
-                      <span id="temp-max-one"> °C</span> /
-                      <span class="temp-min" id="temp-min-one"> °C</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm pt-3 pb-1">
-              <div class="forecast-days">
-                <div class="row align-items-center">
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="day">
-                      <span id="day-two"></span>
-                      <div class="date">
-                        <span id="date-two"></span> /
-                        <span id="month-two"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <i class="fas fa-cloud-showers-heavy icon-forecast"></i>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="temp-max">
-                      <span id="temp-max-two"> °C</span> /
-                      <span class="temp-min" id="temp-min-two"> °C</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm pt-3 pb-1">
-              <div class="forecast-days">
-                <div class="row align-items-center">
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="day">
-                      <span id="day-three"></span>
-                      <div class="date">
-                        <span id="date-three"></span> /
-                        <span id="month-three"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <i class="fas fa-cloud-sun-rain icon-forecast"></i>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="temp-max">
-                      <span id="temp-max-three"> °C</span> /
-                      <span class="temp-min" id="temp-min-three"> °C</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm pt-3 pb-1">
-              <div class="forecast-days">
-                <div class="row align-items-center">
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="day">
-                      <span id="day-four"></span>
-                      <div class="date">
-                        <span id="date-four"></span> /
-                        <span id="month-four"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <i class="fas fa-cloud icon-forecast"></i>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="temp-max">
-                      <span id="temp-max-four"> °C</span> /
-                      <span class="temp-min" id="temp-min-four"> °C</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm pt-3 pb-1">
-              <div class="forecast-days">
-                <div class="row align-items-center">
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="day">
-                      <span id="day-five"></span>
-                      <div class="date">
-                        <span id="date-five"></span> /
-                        <span id="month-five"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <i class="fas fa-bolt icon-forecast"></i>
-                  </div>
-                  <div
-                    class="
-                      col-4 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12
-                    "
-                  >
-                    <div class="temp-max">
-                      <span id="temp-max-five"> °C</span> /
-                      <span class="temp-min" id="temp-min-five"> °C</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div id="forecast"></div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-lg-7">
           <footer>
             <a
               href="https://github.com/dbernadette/weather-app"
