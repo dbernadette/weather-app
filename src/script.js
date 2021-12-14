@@ -272,6 +272,9 @@ function displayForecast(response) {
   });
   forecastHTML += `</div>`;
   forecastElement.innerHTML = forecastHTML;
+
+  forecastCelsiusTempMax = forecast.map((forecastDay) => forecastDay.temp.max);
+  forecastCelsiusTempMin = forecast.map((forecastDay) => forecastDay.temp.min);
 }
 
 function callForecastApi(coord) {
@@ -340,6 +343,21 @@ function searchCity(event) {
   searchInput.value = null;
 }
 
+function displayForecastCelsius() {
+  for (let i = 1; i < 7; i++) {
+    let forecastTempMaxElements =
+      document.querySelectorAll("#temp-forecast-max")[i - 1];
+    forecastTempMaxElements.innerHTML = `${Math.round(
+      forecastCelsiusTempMax[i]
+    )} °`;
+    let forecastTempMinElements =
+      document.querySelectorAll("#temp-forecast-min")[i - 1];
+    forecastTempMinElements.innerHTML = `${Math.round(
+      forecastCelsiusTempMin[i]
+    )} °`;
+  }
+}
+
 function convertTempCelsius(event) {
   event.preventDefault();
   event.target.style.color = "#fb3569";
@@ -355,6 +373,25 @@ function convertTempCelsius(event) {
   currentTemperatureMax.innerHTML = `${Math.round(celsiusTempMax)} °C`;
   currentTemperatureMin.innerHTML = `${Math.round(celsiusTempMin)} °C`;
   windSpeed.innerHTML = `${Math.round(NormalWindSpeed)} km/h`;
+
+  displayForecastCelsius();
+}
+
+function displayForecastFahrenheit() {
+  for (let i = 1; i < 7; i++) {
+    let forecastFahrenheitTempMax = Math.round(
+      (forecastCelsiusTempMax[i] * 9) / 5 + 32
+    );
+    let forecastFahrenheitTempMin = Math.round(
+      (forecastCelsiusTempMin[i] * 9) / 5 + 32
+    );
+    let forecastTempMaxElements =
+      document.querySelectorAll("#temp-forecast-max")[i - 1];
+    forecastTempMaxElements.innerHTML = `${forecastFahrenheitTempMax} °`;
+    let forecastTempMinElements =
+      document.querySelectorAll("#temp-forecast-min")[i - 1];
+    forecastTempMinElements.innerHTML = `${forecastFahrenheitTempMin} °`;
+  }
 }
 
 function convertTempFahrenheit(event) {
@@ -377,6 +414,8 @@ function convertTempFahrenheit(event) {
   currentTemperatureMax.innerHTML = `${Math.round(fahrenheitTempMax)} °F`;
   currentTemperatureMin.innerHTML = `${Math.round(fahrenheitTempMin)} °F`;
   windSpeed.innerHTML = `${Math.round(WeirdWindSpeed)} mph`;
+
+  displayForecastFahrenheit();
 }
 
 function retrievePosition(position) {
@@ -398,6 +437,8 @@ let celsiusTempCurrent = null;
 let celsiusTempMax = null;
 let celsiusTempMin = null;
 let NormalWindSpeed = null;
+let forecastCelsiusTempMax = null;
+let forecastCelsiusTempMin = null;
 
 getCurrentDate(new Date());
 
