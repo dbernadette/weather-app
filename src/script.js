@@ -275,13 +275,22 @@ function displayForecast(response) {
 
   forecastCelsiusTempMax = forecast.map((forecastDay) => forecastDay.temp.max);
   forecastCelsiusTempMin = forecast.map((forecastDay) => forecastDay.temp.min);
+
+  if (unit === "imperial") {
+    forecastCelsiusTempMax = forecast.map(
+      (forecastDay) => ((forecastDay.temp.max - 32) * 5) / 9
+    );
+    forecastCelsiusTempMin = forecast.map(
+      (forecastDay) => ((forecastDay.temp.min - 32) * 5) / 9
+    );
+  }
 }
 
 function callForecastApi(coord) {
   let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
   let latitude = coord.lat;
   let longitude = coord.lon;
-  let unit = "metric";
+
   let forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&units=${unit}&appid=${apiKey}`;
   axios.get(forecastUrl).then(displayForecast);
 }
@@ -292,6 +301,7 @@ function displayWeather(response) {
   let weatherDescription = document.querySelector("#weather");
   let currentTemperature = document.querySelector("#temp-current");
   let currentTemperatureMax = document.querySelector("#temp-current-max");
+  let selectedUnit = document.querySelector("#unit-determiner");
   let currentTemperatureMin = document.querySelector("#temp-current-min");
   let precipitation = document.querySelector("#precipitation-value");
   let humidity = document.querySelector("#humidity-value");
@@ -309,7 +319,8 @@ function displayWeather(response) {
   country.innerHTML = countryFullName;
   weatherDescription.innerHTML = response.data.weather[0].main;
   currentTemperature.innerHTML = Math.round(celsiusTempCurrent);
-  currentTemperatureMax.innerHTML = `${Math.round(celsiusTempMax)} °C`;
+  currentTemperatureMax.innerHTML = `${Math.round(celsiusTempMax)}`;
+  selectedUnit.innerHTML = "°C";
   currentTemperatureMin.innerHTML = `${Math.round(celsiusTempMin)} °C`;
   precipitation.innerHTML = `${response.data.clouds.all} %`;
   humidity.innerHTML = `${response.data.main.humidity} %`;
@@ -321,12 +332,36 @@ function displayWeather(response) {
   refreshTime.innerHTML = formatRefreshTime(response.data.dt * 1000);
 
   callForecastApi(response.data.coord);
+
+  if (unit === "imperial") {
+    celsiusTempCurrent = ((response.data.main.temp - 32) * 5) / 9;
+    celsiusTempMax = ((response.data.main.temp_max - 32) * 5) / 9;
+    celsiusTempMin = ((response.data.main.temp_min - 32) * 5) / 9;
+    NormalWindSpeed = response.data.wind.speed * 1.609;
+
+    currentTemperature.innerHTML = Math.round(response.data.main.temp);
+    currentTemperatureMax.innerHTML = `${Math.round(
+      response.data.main.temp_max
+    )}`;
+    selectedUnit.innerHTML = "°F";
+    currentTemperatureMin.innerHTML = `${Math.round(
+      response.data.main.temp_min
+    )} °F`;
+    windSpeed.innerHTML = `${Math.round(response.data.wind.speed)} mph`;
+  }
 }
 
 function callWeatherApi(city) {
   let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
   let cityName = city;
-  let unit = "metric";
+
+  let selectedUnit = document.querySelector("#unit-determiner");
+  if (selectedUnit.innerHTML === "°F") {
+    unit = "imperial";
+  } else {
+    unit = "metric";
+  }
+
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unit}&appid=${apiKey}`;
   axios.get(weatherUrl).then(displayWeather);
 }
@@ -366,11 +401,13 @@ function convertTempCelsius(event) {
 
   let currentTemperature = document.querySelector("#temp-current");
   let currentTemperatureMax = document.querySelector("#temp-current-max");
+  let selectedUnit = document.querySelector("#unit-determiner");
   let currentTemperatureMin = document.querySelector("#temp-current-min");
   let windSpeed = document.querySelector("#wind-value");
 
   currentTemperature.innerHTML = Math.round(celsiusTempCurrent);
-  currentTemperatureMax.innerHTML = `${Math.round(celsiusTempMax)} °C`;
+  currentTemperatureMax.innerHTML = `${Math.round(celsiusTempMax)}`;
+  selectedUnit.innerHTML = "°C";
   currentTemperatureMin.innerHTML = `${Math.round(celsiusTempMin)} °C`;
   windSpeed.innerHTML = `${Math.round(NormalWindSpeed)} km/h`;
 
@@ -402,6 +439,7 @@ function convertTempFahrenheit(event) {
 
   let currentTemperature = document.querySelector("#temp-current");
   let currentTemperatureMax = document.querySelector("#temp-current-max");
+  let selectedUnit = document.querySelector("#unit-determiner");
   let currentTemperatureMin = document.querySelector("#temp-current-min");
   let windSpeed = document.querySelector("#wind-value");
 
@@ -411,7 +449,8 @@ function convertTempFahrenheit(event) {
   let WeirdWindSpeed = NormalWindSpeed / 1.609;
 
   currentTemperature.innerHTML = Math.round(fahrenheitTempCurrent);
-  currentTemperatureMax.innerHTML = `${Math.round(fahrenheitTempMax)} °F`;
+  currentTemperatureMax.innerHTML = `${Math.round(fahrenheitTempMax)}`;
+  selectedUnit.innerHTML = "°F";
   currentTemperatureMin.innerHTML = `${Math.round(fahrenheitTempMin)} °F`;
   windSpeed.innerHTML = `${Math.round(WeirdWindSpeed)} mph`;
 
@@ -419,11 +458,17 @@ function convertTempFahrenheit(event) {
 }
 
 function retrievePosition(position) {
+  let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
 
-  let apiKey = "a8d8c3705e34efea15d4ed8081bf1177";
-  let unit = "metric";
+  let selectedUnit = document.querySelector("#unit-determiner");
+  if (selectedUnit.innerHTML === "°F") {
+    unit = "imperial";
+  } else {
+    unit = "metric";
+  }
+
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${unit}&appid=${apiKey}`;
   axios.get(weatherUrl).then(displayWeather);
 }
@@ -439,6 +484,7 @@ let celsiusTempMin = null;
 let NormalWindSpeed = null;
 let forecastCelsiusTempMax = null;
 let forecastCelsiusTempMin = null;
+let unit = null;
 
 getCurrentDate(new Date());
 
